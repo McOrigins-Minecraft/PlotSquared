@@ -75,13 +75,11 @@ import org.checkerframework.checker.nullness.qual.MonotonicNonNull;
 import org.checkerframework.checker.nullness.qual.NonNull;
 import org.checkerframework.checker.nullness.qual.Nullable;
 
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.URI;
@@ -187,7 +185,7 @@ public class PlotSquared {
                 Locale.ENGLISH,
                 CaptionLoader.patternExtractor(Pattern.compile("messages_(.*)\\.json")),
                 DefaultCaptionProvider.forClassLoaderFormatString(
-                        this.getClass().getClassLoader(),
+                        platform.getClass().getClassLoader(),
                         "lang/messages_%s.json" // the path in our jar file
                 ),
                 TranslatableCaption.DEFAULT_NAMESPACE
@@ -1364,17 +1362,18 @@ public class PlotSquared {
             }
         }
         Settings.load(configFile);
-        //Sets the version information for the settings.yml file
-        try (InputStream stream = getClass().getResourceAsStream("/plugin.properties")) {
-            try (BufferedReader br = new BufferedReader(new InputStreamReader(stream))) {
-                String versionString = br.readLine();
-                String commitString = br.readLine();
-                String dateString = br.readLine();
-                this.version = PlotVersion.tryParse(versionString, commitString, dateString);
-            }
-        } catch (IOException throwable) {
-            throwable.printStackTrace();
-        }
+        ////Sets the version information for the settings.yml file
+        //try (InputStream stream = this.platform.getClass().getResourceAsStream("plugin.properties")) {
+        //    try (BufferedReader br = new BufferedReader(new InputStreamReader(stream))) {
+        //        String versionString = br.readLine();
+        //        String commitString = br.readLine();
+        //        String dateString = br.readLine();
+        //        this.version = PlotVersion.tryParse("7.5.12-SNAPSHOT", "9512629", "26.01.26");
+        //    }
+        //} catch (IOException throwable) {
+        //    throwable.printStackTrace();
+        //}
+        this.version = new PlotVersion(0, 0, 0, 0, "0");
         Settings.save(configFile);
         config = YamlConfiguration.loadConfiguration(configFile);
     }

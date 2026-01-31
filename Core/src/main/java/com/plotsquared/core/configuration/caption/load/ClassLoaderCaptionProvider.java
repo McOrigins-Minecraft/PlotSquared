@@ -51,7 +51,7 @@ final class ClassLoaderCaptionProvider implements DefaultCaptionProvider {
     public @Nullable Map<String, String> loadDefaults(final @NonNull Locale locale) {
         final String url = this.urlProvider.apply(locale);
         try {
-            final InputStream stream = this.classLoader.getResourceAsStream(url);
+            final InputStream stream = this.classLoader.getClass().getClassLoader().getResourceAsStream(url);
             if (stream == null) {
                 LOGGER.info("No resource for locale '{}' found in the plugin file." +
                                 "Please ensure you have placed the latest version of the file messages_{}.json in the 'lang' folder." +

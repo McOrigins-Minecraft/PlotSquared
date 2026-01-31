@@ -174,6 +174,8 @@ public final class BukkitPlatform extends JavaPlugin implements Listener, PlotPl
     private static final Logger LOGGER = LogManager.getLogger("PlotSquared/" + BukkitPlatform.class.getSimpleName());
     private static final int BSTATS_ID = 1404;
 
+    private final BukkitPlatform instance = this;
+
     static {
         try {
             Settings.load(new File(PlotSquared.platform().getDirectory(), "settings.yml"));
@@ -762,6 +764,10 @@ public final class BukkitPlatform extends JavaPlugin implements Listener, PlotPl
             plotCommand.setAliases(Arrays.asList("p", "ps", "plotme", "plot"));
             plotCommand.setTabCompleter(bukkitCommand);
         }
+    }
+
+    public BukkitPlatform getInstance(){
+        return instance;
     }
 
     @Override

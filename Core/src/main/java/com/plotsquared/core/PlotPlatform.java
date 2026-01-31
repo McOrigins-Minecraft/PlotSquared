@@ -56,7 +56,6 @@ import java.io.File;
  * @param <P> Player type
  */
 public interface PlotPlatform<P> extends LocaleHolder {
-
     /**
      * Gets the directory which contains PlotSquared files. The directory may not exist.
      *
